@@ -1,0 +1,35 @@
+<html>
+<header>
+</header>
+<body>
+    <h1>Video Info</h1>
+    <form>
+        <div>
+            <label> Select Video </label>
+            <input type="file" accept="video/*" />
+        </div>
+        <button type="submit">Get Info </button>
+    </form>
+    
+    <h1 id="result"></h1>
+    <script>
+        debugger
+        const electron = require('electron'); 
+        const { ipcRenderer } = electron; // allow to commuticate back to electron process
+        // if type this line to chrome console will error require is not defined
+        // but electron know
+        document.querySelector('form').addEventListener('submit',(event) => {
+            debugger
+            event.preventDefault();
+            const { path } = document.querySelector('input').files[0]; // destructure file path
+            console.log(path);
+            ipcRenderer.send('video:submit', path); //event name can be any name & path
+        });
+
+        ipcRenderer.on('video:metadata',(event, duration)=>{
+            console.log(`html ${duration}`);
+            document.querySelector('#result').innerHTML = `Video is ${duration} seconds`;
+        });
+    </script>
+</body>
+</html>
