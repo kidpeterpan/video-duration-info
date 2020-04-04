@@ -1,6 +1,6 @@
 # video-duration-info
 
-![electron]('/static/electron.png')
+![electron](/static/electron.png)
 
 this is my first electron application.
 
